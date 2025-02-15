@@ -1,14 +1,9 @@
 <script setup lang="ts">
-import * as locales from '@nuxt/ui/locale'
-
-const { locale } = useI18n()
-const lang = computed(() => locales[locale.value].code)
-const dir = computed(() => locales[locale.value].dir)
+import { pt_br } from '@nuxt/ui/locale'
 
 useHead({
   htmlAttrs: {
-    lang,
-    dir,
+    lang: 'pt-br',
   },
 })
 </script>
@@ -17,7 +12,7 @@ useHead({
   <NuxtLayout>
     <UApp
       :toaster="{ position: 'top-center', duration: 3000 }"
-      :locale="locales[locale]"
+      :locale="pt_br"
     >
       <NuxtPage />
     </UApp>

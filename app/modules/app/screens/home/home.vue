@@ -3,8 +3,5 @@
 </script>
 
 <template>
-  <UContainer>
-    <Header />
-    <slot />
-  </UContainer>
+  hello
 </template>

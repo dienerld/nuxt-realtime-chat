@@ -7,7 +7,7 @@ export const rooms = sqliteTable('rooms', {
 })
 
 export const users = sqliteTable('users', {
-  id: text('id').primaryKey().$defaultFn(() => ulid()).references(() => rooms.id),
+  id: text('id').primaryKey().$defaultFn(() => ulid()),
   name: text('name').notNull(),
   username: text('username').notNull(),
   password: text('password').notNull(),

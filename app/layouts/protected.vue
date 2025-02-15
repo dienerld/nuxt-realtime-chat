@@ -1,10 +1,10 @@
 <script setup lang="ts">
-
+const { user } = useUserSession()
 </script>
 
 <template>
   <UContainer>
-    <Header />
+    <Header :user />
     <slot />
   </UContainer>
 </template>

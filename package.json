@@ -8,39 +8,28 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "db:migrate": "drizzle-kit migrate --config ./config/drizzle.config.ts",
+    "db:migrate": "drizzle-kit generate --config ./config/drizzle.config.ts",
     "db:push": "drizzle-kit push --config ./config/drizzle.config.ts",
     "db:studio": "drizzle-kit studio --config ./config/drizzle.config.ts"
   },
   "dependencies": {
-    "@vueuse/motion": "^2.2.6",
     "better-sqlite3": "^11.8.1",
     "drizzle-orm": "^0.39.3",
-    "ulid": "^2.3.0"
+    "ulid": "^2.3.0",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.1.1",
     "@nuxt/devtools": "latest",
     "@nuxt/image": "^1.9.0",
     "@nuxt/ui": "^3.0.0-alpha.12",
-    "@nuxtjs/i18n": "^9.2.0",
     "@types/better-sqlite3": "^7.6.12",
     "drizzle-kit": "^0.30.4",
     "eslint": "^9.20.0",
     "eslint-plugin-format": "^1.0.1",
     "nuxt": "^3.15.4",
     "nuxt-auth-utils": "^0.5.14",
-    "nuxt-marquee": "^1.0.4",
     "nuxt-svgo": "^4.0.14",
     "tailwindcss-animate": "^1.0.7"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "esbuild",
-      "sharp",
-      "sqlite3",
-      "vue-demi"
-    ]
   }
 }
