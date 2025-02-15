@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     'nuxt-auth-utils',
     '@nuxt/image',
     'nuxt-svgo',
+    '@vueuse/nuxt',
   ],
   runtimeConfig: {
     nodeEnv: process.env.NODE_ENV,

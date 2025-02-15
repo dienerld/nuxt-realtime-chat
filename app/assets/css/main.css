@@ -1,17 +1,17 @@
 /*
 Comentado por conter bug com tailwindcss
 Usando formato abaixo
+*/
 @import 'tailwindcss';
- */
 
 /* Remover após correção de bug do import tailwindcss */
-@layer theme, base, components, utilities;
+/* @layer theme, base, components, utilities;
 @import 'tailwindcss/theme' layer(theme) theme(static);
 @import 'tailwindcss/preflight' layer(base);
-@import 'tailwindcss/utilities' layer(utilities);
+@import 'tailwindcss/utilities' layer(utilities); */
 
+/* @import '@nuxt/ui'; */
 /* Then import "@nuxt/ui": */
-@import '@nuxt/ui';
 
 @import '@nuxt/ui';
 @import './global.css' layer(utilities);
@@ -23,6 +23,8 @@ Usando formato abaixo
   --font-family-lora: 'Lora', serif;
   --font-family-instrument: 'Instrument Serif', serif;
   --font-family-roboto: 'Roboto', sans-serif;
+
+  --text-color-primary: var(--ui-text);
 
   --color-primary-50: var(--ui-color-primary-50);
   --color-primary-100: var(--ui-color-primary-100);
@@ -47,4 +49,8 @@ Usando formato abaixo
   --color-dark-800: var(--ui-color-neutral-800);
   --color-dark-900: var(--ui-color-neutral-900);
   --color-dark-950: var(--ui-color-neutral-950);
+}
+
+.debug {
+  @apply border border-red-500 text-white;
 }
