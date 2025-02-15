@@ -1,21 +1,16 @@
 {
-  "name": "boilerplate-nuxt-ui",
+  "name": "nuxt-realtime-chat",
   "type": "module",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "db:migrate": "drizzle-kit generate --config ./config/drizzle.config.ts",
-    "db:push": "drizzle-kit push --config ./config/drizzle.config.ts",
-    "db:studio": "drizzle-kit studio --config ./config/drizzle.config.ts"
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "better-sqlite3": "^11.8.1",
-    "drizzle-orm": "^0.39.3",
-    "ulid": "^2.3.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {
@@ -24,9 +19,7 @@
     "@nuxt/devtools": "latest",
     "@nuxt/image": "^1.9.0",
     "@nuxt/ui": "^3.0.0-alpha.12",
-    "@types/better-sqlite3": "^7.6.12",
     "@vueuse/nuxt": "12.6.1",
-    "drizzle-kit": "^0.30.4",
     "eslint": "^9.20.0",
     "eslint-plugin-format": "^1.0.1",
     "nuxt": "^3.15.4",

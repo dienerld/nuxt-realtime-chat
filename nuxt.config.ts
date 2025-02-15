@@ -12,8 +12,12 @@ export default defineNuxtConfig({
     'nuxt-svgo',
     '@vueuse/nuxt',
   ],
+
   runtimeConfig: {
     nodeEnv: process.env.NODE_ENV,
+    public: {
+      apiUrl: 'http://localhost:3333',
+    },
   },
   css: ['~/assets/css/main.css'],
   svgo: {

@@ -3,7 +3,7 @@ import type { ZodFormattedError } from 'zod'
 import type { Login } from '~~/shared/schemas/user'
 import { schemaLogin } from '~~/shared/schemas/user'
 
-const{fetch} = useUserSession()
+const { login } = useAuth()
 const router = useRouter()
 const dataLogin = ref({
   username: '',
@@ -18,11 +18,7 @@ async function handleLogin() {
     return
   }
   try {
-    await $fetch('/api/auth/signin', {
-      method: 'POST',
-      body: data.data,
-    })
-    await fetch()
+    await login(data.data)
     router.push('/app')
   }
   catch (error) {
