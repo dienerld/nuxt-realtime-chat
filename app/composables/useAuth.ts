@@ -1,4 +1,4 @@
-import type { Login, User } from '~~/shared/entities/user.model'
+import type { Login, User } from '~/entities/user.model'
 
 interface ResponseApi extends User {
   session: string

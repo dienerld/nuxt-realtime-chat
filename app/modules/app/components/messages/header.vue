@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from '@nuxt/ui'
-import type { User } from '~~/shared/entities/user.model'
+import type { User } from '~/entities/user.model'
 
 const props = defineProps<{
   user: User

@@ -25,6 +25,7 @@ Usando formato abaixo
   --font-family-roboto: 'Roboto', sans-serif;
 
   --text-color-primary: var(--ui-text);
+  --text-color-primary-contrast: var(--ui-color-neutral-100);
 
   --color-primary-50: var(--ui-color-primary-50);
   --color-primary-100: var(--ui-color-primary-100);

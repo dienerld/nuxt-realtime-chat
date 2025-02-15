@@ -1,4 +1,4 @@
-import type { User } from '~~/shared/entities/user.model'
+import type { User } from '~/entities/user.model'
 
 export interface MySelfProvider {
   user: Ref<User>

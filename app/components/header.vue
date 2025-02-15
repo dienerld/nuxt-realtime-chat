@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { User } from '@@/shared/entities/user.model'
+import type { User } from '~/entities/user.model'
 
 const props = defineProps<{
   user?: User | null
@@ -7,9 +7,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <header
-    class="relative flex w-full items-center justify-between py-2 px-4"
-  >
+  <header class="flex w-full items-center justify-between py-2 px-4">
     <div class="flex w-auto items-center justify-start">
       <Logo />
     </div>
