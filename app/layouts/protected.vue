@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import { useSocket } from '~/modules/app/composables/useSocket'
+
 const { user, loading } = useMyself()
+
+useSocket({ user })
 </script>
 
 <template>
@@ -10,11 +14,6 @@ const { user, loading } = useMyself()
     <template v-else-if="user">
       <div class="size-full py-4">
         <slot />
-      </div>
-    </template>
-    <template v-else>
-      <div class="flex justify-center items-center">
-        Sem sessão
       </div>
     </template>
   </UContainer>

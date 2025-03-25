@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import type { ZodFormattedError } from 'zod'
-import type { Login } from '~~/shared/schemas/user'
-import { schemaLogin } from '~~/shared/schemas/user'
+import type { Login } from '~/entities/schemas/user'
+import { schemaLogin } from '~/entities/schemas/user'
+
+definePageMeta({
+  layout: 'empty',
+})
 
 const { login } = useAuth()
 const router = useRouter()
@@ -28,6 +32,7 @@ async function handleLogin() {
 </script>
 
 <template>
+  <Header />
   <div class="flex flex-col items-center justify-center gap-4 py-12 px-6 sm:px-10 lg:px-20 max-w-3xl mx-auto size-full">
     <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">
       Entrar

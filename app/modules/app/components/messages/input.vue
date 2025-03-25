@@ -4,10 +4,15 @@ const emit = defineEmits<{
 }>()
 
 const message = ref('')
+
+function handleSendMessage() {
+  emit('wantsSendMessage', message.value)
+  message.value = ''
+}
 </script>
 
 <template>
-  <div class="flex w-full gap-4">
+  <form class="flex w-full gap-4" @submit.prevent="handleSendMessage">
     <UInput
       v-model="message" placeholder="Digite uma mensagem"
       class="w-full" size="lg"
@@ -16,7 +21,7 @@ const message = ref('')
       aria-label="Enviar" variant="solid"
       color="primary" icon="lucide:send-horizontal"
       class="min-w-10 flex items-center justify-center"
-      size="lg" @click="emit('wantsSendMessage', message)"
+      size="lg" type="submit"
     />
-  </div>
+  </form>
 </template>

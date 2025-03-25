@@ -4,6 +4,8 @@ export default defineNuxtRouteMiddleware(async (to) => {
   }
 
   const auth = useAuth()
+  console.log('-->', auth.isLogged())
+
   if (!auth.isLogged()) {
     return navigateTo('/auth/signin')
   }

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { User } from '~/entities/user.model'
+import AddContact from '../add-contact/addContact.vue'
 
 const props = defineProps<{
   contacts: User[] | undefined
@@ -30,6 +31,7 @@ const contacts = computed(() => {
     Contatos
   </p>
   <ul class="mt-4 h-full">
+    <AddContact />
     <template v-if="!props.loading">
       <li
         v-for="contact in contacts"

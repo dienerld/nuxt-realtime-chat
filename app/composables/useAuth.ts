@@ -1,7 +1,17 @@
 import type { Login, User } from '~/entities/user.model'
 
-interface ResponseApi extends User {
+interface ResponseApiSignin extends User {
   session: string
+}
+
+interface ResponseApiSignup {
+  id: string
+}
+
+interface SignupData {
+  name: string
+  username: string
+  password: string
 }
 
 export function useAuth() {
@@ -16,14 +26,21 @@ export function useAuth() {
   }
 
   async function login(data: Login) {
-    const response = await $fetch<ResponseApi>(`${useRuntimeConfig().public.apiUrl}/auth/signin`, {
+    const response = await $fetch<ResponseApiSignin>(`${useRuntimeConfig().public.apiUrl}/auth/signin`, {
       method: 'POST',
-      body: JSON.stringify(data),
+      body: data,
     })
 
-    console.log(response)
-
     accessToken.value = response.session
+  }
+
+  async function signup(data: SignupData) {
+    const response = await $fetch<ResponseApiSignup>(`${useRuntimeConfig().public.apiUrl}/auth/signup`, {
+      method: 'POST',
+      body: data,
+    })
+
+    return response
   }
 
   async function logout() {
@@ -35,5 +52,6 @@ export function useAuth() {
     logout,
     login,
     accessToken: readonly(accessToken).value,
+    signup,
   }
 }

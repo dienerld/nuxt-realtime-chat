@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import type { ZodFormattedError } from 'zod'
-import { z } from 'zod'
-import { schemaSignup, type Signup } from '~~/shared/schemas/user'
+import type { Signup } from '~/entities/schemas/user'
+import { schemaSignup } from '~/entities/schemas/user'
 
+definePageMeta({
+  layout: 'empty',
+})
 
+const { signup } = useAuth()
 const router = useRouter()
 const toast = useToast()
 const dataLogin = ref({
@@ -20,10 +24,7 @@ async function handleLogin() {
     return
   }
   try {
-    await $fetch('/api/auth/signup', {
-      method: 'POST',
-      body: data.data,
-    })
+    await signup(data.data)
     toast.add({
       title: 'Sucesso',
       description: 'Conta criada com sucesso',
@@ -37,6 +38,7 @@ async function handleLogin() {
 </script>
 
 <template>
+  <Header />
   <div class="flex flex-col items-center justify-center gap-4 py-12 px-6 sm:px-10 lg:px-20 max-w-3xl mx-auto size-full">
     <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">
       Entrar
