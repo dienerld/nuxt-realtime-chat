@@ -1,75 +1,65 @@
-# Nuxt UI Minimal Starter
+# Nuxt Realtime Chat
 
-Look at [Nuxt docs](https://nuxt.com/docs/getting-started/introduction) and [Nuxt UI docs](https://ui.nuxt.com) to learn more.
+Um aplicativo de chat em tempo real construído com Nuxt 3, utilizando WebSocket para comunicação em tempo real. Projeto construído para fins de estudo de WebSocket e prática para construção de interfaces de usuário.
 
-## Setup
+## 🚀 Tecnologias
 
-Make sure to install the dependencies:
+- [Nuxt 3](https://nuxt.com/) - Framework Vue.js para aplicações modernas
+- [Nuxt UI](https://ui.nuxt.com/) - Biblioteca de componentes para Nuxt
+- [Socket.IO](https://socket.io/) - Biblioteca para comunicação em tempo real
+- [TypeScript](https://www.typescriptlang.org/) - Superset JavaScript com tipagem estática
+- [TailwindCSS](https://tailwindcss.com/) - Framework CSS utilitário
+- [Zod](https://zod.dev/) - Validação de esquemas TypeScript
 
+## 📋 Pré-requisitos
+
+- Node.js (versão LTS recomendada)
+- pnpm (versão 10.6.5 ou superior)
+
+## 🛠️ Instalação
+
+1. Clone o repositório:
 ```bash
-# npm
-npm install
+git clone https://github.com/dienerld/nuxt-realtime-chat
+cd nuxt-realtime-chat
+```
 
-# pnpm
+2. Instale as dependências:
+```bash
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
+3. Configure as variáveis de ambiente:
 ```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+cp .env.example .env
 ```
 
-## Production
-
-Build the application for production:
-
+4. Inicie o servidor de desenvolvimento:
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+pnpm dev
 ```
 
-Locally preview production build:
+## 🏗️ Estrutura do Projeto
 
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
+```
+app/
+  ├── modules/
+  │   ├── app/           # Módulo principal da aplicação
+  │   └── landing-page/  # Módulo da página inicial
+  ├── composables/       # Composables globais
+  ├── components/        # Componentes globais
+  └── pages/            # Páginas da aplicação
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## 🎨 Design System
+
+O projeto utiliza o Nuxt UI como biblioteca de componentes base, seguindo as melhores práticas de design system e acessibilidade.
+
+
+## 📝 Convenções de Código
+
+- TypeScript para tipagem estática
+- ESLint para padronização de código
+- Componentes Vue com `<script setup lang="ts">`
+- Composables para lógica de negócio
+- Princípios SOLID e Clean Code
