@@ -5,10 +5,12 @@ import { schemaLogin } from '~/entities/schemas/user'
 
 definePageMeta({
   layout: 'empty',
+  middleware: 'auth',
 })
 
 const { login } = useAuth()
 const router = useRouter()
+const toast = useToast()
 const dataLogin = ref({
   username: '',
   password: '',
@@ -19,13 +21,33 @@ async function handleLogin() {
   const data = schemaLogin.safeParse(dataLogin.value)
   if (!data.success) {
     dataErrors.value = data.error.format()
+    function getErrorMessage() {
+      if (dataErrors.value?.username?._errors) {
+        return `Usuário: ${dataErrors.value.username._errors[0]}`
+      }
+      if (dataErrors.value?.password?._errors) {
+        return `Senha: ${dataErrors.value.password._errors[0]}`
+      }
+    }
+
+    toast.add({
+      title: 'Erro ao fazer login',
+      description: getErrorMessage(),
+      color: 'error',
+    })
     return
   }
   try {
     await login(data.data)
     router.push('/app')
   }
-  catch (error) {
+  catch (error: any) {
+    console.log(error.response._data)
+    toast.add({
+      title: 'Erro ao fazer login',
+      description: error.response._data.message,
+      color: 'error',
+    })
     console.log(error)
   }
 }

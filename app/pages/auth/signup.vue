@@ -5,6 +5,7 @@ import { schemaSignup } from '~/entities/schemas/user'
 
 definePageMeta({
   layout: 'empty',
+  middleware: 'auth',
 })
 
 const { signup } = useAuth()

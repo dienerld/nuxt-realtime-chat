@@ -32,11 +32,11 @@ export function useMyself() {
       if (!response) {
         return
       }
-
       user.value = response
     }
     catch (error) {
       logAndTrack('useMyself', error)
+      session.logout()
     }
     finally {
       loading.value = false

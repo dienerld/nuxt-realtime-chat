@@ -21,7 +21,7 @@ function formatDate(date: Date) {
 <template>
   <div
     :class="{ 'self-end': props.isOwnerMessage }"
-    class="max-w-2/3 w-fit bg-primary-900 p-2 rounded-md "
+    class="max-w-2/3 w-fit bg-primary-700 p-2 rounded-md "
   >
     <p class="text-primary-contrast text-sm">
       {{ props.message.message }}

@@ -1,6 +1,5 @@
 import process from 'node:process'
 
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
   future: { compatibilityVersion: 4 },
@@ -12,11 +11,10 @@ export default defineNuxtConfig({
     'nuxt-svgo',
     '@vueuse/nuxt',
   ],
-
   runtimeConfig: {
     nodeEnv: process.env.NODE_ENV,
     public: {
-      apiUrl: 'http://localhost:3333',
+      apiUrl: process.env.NUXT_PUBLIC_API_URL,
     },
   },
   css: ['~/assets/css/main.css'],

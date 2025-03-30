@@ -3,7 +3,7 @@ import { pt_br } from '@nuxt/ui/locale'
 
 useHead({
   htmlAttrs: {
-    lang: 'pt-br',
+    lang: 'pt-BR',
   },
 })
 </script>

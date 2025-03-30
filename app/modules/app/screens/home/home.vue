@@ -1,29 +1,35 @@
 <script lang="ts">
-import type { Contact } from '@/modules/app/composables/useGetContacts'
 import type { ReceiveMessage } from '@/modules/app/entities/message'
+import type { Contact } from '../../entities/contact'
 import MessageHeader from '@/modules/app/components/messages/header.vue'
 import MessageInput from '@/modules/app/components/messages/input.vue'
-import MessageLoader from '@/modules/app/components/messages/message/loader.vue'
 import MessageContent from '@/modules/app/components/messages/message/message.vue'
 import MessageWrapper from '@/modules/app/components/messages/wrapper.vue'
-import Sidebar from '@/modules/app/components/sidebar/sidebar.vue'
 
+import Sidebar from '@/modules/app/components/sidebar/sidebar.vue'
 import { useGetContacts } from '@/modules/app/composables/useGetContacts'
 import { useGetHistory } from '@/modules/app/composables/useGetHistory'
 import { socketKey } from '@/modules/app/composables/useSocket'
 </script>
 
 <script setup lang="ts">
-const { contacts, loading } = useGetContacts()
-const { historyByRoomId, loading: historyLoading } = useGetHistory()
 const { user } = inject(mySelfKey)!
 const { send, listenMessage } = inject(socketKey)!
+const toast = useToast()
+
+const {
+  contacts,
+  loading,
+  refetch,
+} = useGetContacts()
+const { historyByRoomId, status: historyStatus, error: historyError } = useGetHistory()
+
 const friend = ref<Contact>()
+const rooms: Record<string, ReceiveMessage[]> = reactive({})
 
 function wantsSendMessageTo(username: string) {
   friend.value = contacts.value?.find(contact => contact.username === username)
 }
-const rooms: Record<string, ReceiveMessage[]> = reactive({})
 
 function handleSendMessage(message: string) {
   if (!friend.value) return
@@ -32,19 +38,32 @@ function handleSendMessage(message: string) {
 
 watch(contacts, async () => {
   contacts.value?.forEach((contact) => {
-    rooms[contact.roomId] = []
+    if (!rooms[contact.roomId]) {
+      rooms[contact.roomId] = []
+    }
   })
 })
 
-watch(friend, async () => {
-  if (!friend.value) return
-  if (rooms[friend.value.roomId]?.length > 0) return
+watch(friend, async (FriendValue) => {
+  if (!FriendValue) return
 
-  if (rooms[friend.value.roomId]?.length === 0) {
-    const messages = await historyByRoomId(friend.value.roomId)
+  if (FriendValue.roomId && FriendValue.roomId in rooms && rooms[FriendValue.roomId]!.length > 0) return
+
+  if (FriendValue.roomId && rooms[FriendValue.roomId]?.length === 0) {
+    const messages = await historyByRoomId(FriendValue.roomId)
     messages.forEach((message) => {
       message.createdAt = new Date(message.createdAt)
-      rooms[message.roomId]?.push(message)
+      rooms[FriendValue.roomId]?.push(message)
+    })
+  }
+})
+
+watch(historyError, (error) => {
+  if (error && historyStatus.isError) {
+    toast.add({
+      title: 'Erro ao carregar histórico',
+      description: error.detail,
+      color: 'error',
     })
   }
 })
@@ -64,11 +83,12 @@ onMounted(() => {
         :contacts
         :loading
         @wants-send-message-to="wantsSendMessageTo"
+        @contact-added="refetch"
       />
     </div>
     <div class="col-span-7 md:col-span-9 p-2 border border-dark-200 dark:border-dark-700">
       <template v-if="friend">
-        <MessageWrapper :loading="historyLoading">
+        <MessageWrapper :loading="historyStatus.isPending.value">
           <template #header>
             <MessageHeader :user="friend" />
           </template>

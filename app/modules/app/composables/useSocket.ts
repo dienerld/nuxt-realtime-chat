@@ -13,11 +13,12 @@ interface SocketProvider {
 export const socketKey = Symbol('socket') as InjectionKey<SocketProvider>
 
 interface UseSocketOptions {
-  user?: Ref<User>
+  user?: Ref<User | undefined>
 }
 
 export function useSocket({ user }: UseSocketOptions) {
   const { accessToken } = useAuth()
+  const toast = useToast()
   const isConnected = ref(false)
   const socket = ref(io(useRuntimeConfig().public.apiUrl, {
     auth: { token: accessToken },
@@ -35,7 +36,11 @@ export function useSocket({ user }: UseSocketOptions) {
   })
 
   socket.value.on('connect_error', (error) => {
-    console.error('Conexão falhou:', error)
+    toast.add({
+      title: 'Conexão falhou',
+      description: error.message,
+      color: 'error',
+    })
     isConnected.value = false
   })
 
@@ -59,7 +64,7 @@ export function useSocket({ user }: UseSocketOptions) {
     })
   }
 
-  function listenMessage(callback: (data: ReceiveMessage) => void) {
+  function listenMessage(callback: (data: ReceiveMessage) => void | Promise<void>) {
     socket.value.on('message', callback)
   }
 

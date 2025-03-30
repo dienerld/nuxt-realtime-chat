@@ -9,6 +9,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: 'wantsSendMessageTo', username: string): void
+  (e: 'contactAdded'): void
 }>()
 
 const { user } = inject(mySelfKey)!
@@ -30,8 +31,8 @@ const contacts = computed(() => {
   <p class="mt-4 text-sm font-medium text-dark-800 dark:text-dark-200">
     Contatos
   </p>
-  <ul class="mt-4 h-full">
-    <AddContact />
+  <ul class="mt-4 h-full ">
+    <AddContact class="mb-4" @contact-added="() => emit('contactAdded')" />
     <template v-if="!props.loading">
       <li
         v-for="contact in contacts"
@@ -50,7 +51,7 @@ const contacts = computed(() => {
     </template>
     <template v-else>
       <li
-        v-for="i in 10"
+        v-for="i in 5"
         :key="i"
         class="w-full inline-flex items-center gap-2"
       >

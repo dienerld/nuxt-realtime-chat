@@ -2,9 +2,7 @@
 import type { DropdownMenuItem } from '@nuxt/ui'
 import type { User } from '~/entities/user.model'
 
-const props = defineProps<{
-  user: User
-}>()
+const props = defineProps<{ user: User }>()
 const emit = defineEmits<{
   (e: 'wantsClearConversation'): void
   (e: 'wantsDeleteContact'): void
@@ -13,11 +11,13 @@ const items: DropdownMenuItem[] = [
   {
     label: 'Limpar Conversa',
     icon: 'i-lucide-triangle-alert',
+    disabled: true,
     onSelect: () => emit('wantsClearConversation'),
   },
   {
     label: 'Excluir Contato',
     icon: 'i-lucide-trash',
+    disabled: true,
     onSelect: () => emit('wantsDeleteContact'),
   },
 ]
@@ -45,6 +45,19 @@ const items: DropdownMenuItem[] = [
         color="neutral"
         variant="ghost"
       />
+
+      <template #item="{ item }">
+        <UTooltip :text="item.disabled ? 'Funcionalidade ainda não implementada' : ''">
+          <UButton
+            :icon="item.icon"
+            :disabled="item.disabled"
+            :label="item.label"
+            color="neutral"
+            variant="ghost"
+            @click="item.onSelect"
+          />
+        </UTooltip>
+      </template>
     </UDropdownMenu>
   </div>
 </template>

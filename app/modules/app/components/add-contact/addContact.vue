@@ -1,14 +1,23 @@
 <script lang="ts" setup>
-import { useAddFriend } from '~/modules/app/composables/useAddFriend'
+import { useAddContact } from '~/modules/app/composables/useAddContact'
+
+const emit = defineEmits<{
+  (e: 'contactAdded'): void
+}>()
 
 const isOpen = ref(false)
-const { addFriend, checkIfUserExists, error, loading } = useAddFriend()
+const { addContact, checkIfUserExists, error, status, clearError } = useAddContact()
 
 const username = ref('')
 const usernameDebounced = useDebounce(username, 500)
 
-function handleAddContact() {
-  addFriend(username.value)
+async function handleAddContact() {
+  await addContact(username.value)
+  emit('contactAdded')
+
+  if (status.isSuccess.value) {
+    isOpen.value = false
+  }
 }
 
 watch(usernameDebounced, () => {
@@ -18,62 +27,57 @@ watch(usernameDebounced, () => {
 
 watch(isOpen, () => {
   if (!isOpen.value) {
-    // clear states
     username.value = ''
-    error.value = undefined
+    clearError()
   }
 })
 </script>
 
 <template>
-  <div>
-    <UModal
-      v-model:open="isOpen"
-      title="Adicionar Amigo"
-      :close="{
-        color: 'error',
-      }"
+  <UModal
+    v-model:open="isOpen"
+    title="Adicionar Amigo"
+    :close="{ color: 'error' }"
+  >
+    <UButton
+      icon="i-lucide-user-plus"
+      variant="soft"
+      class="w-full mt-4"
+      @click="isOpen = true"
     >
-      <UButton
-        icon="i-lucide-user-plus"
-        variant="soft"
-        class="w-full mt-4"
-        @click="isOpen = true"
+      Adicionar Amigo
+    </UButton>
+
+    <template #body>
+      <UFormField
+        label="Nome de usuário"
+        :error="error?.title"
       >
-        Adicionar Amigo
-      </UButton>
+        <UInput
+          v-model="username"
+          placeholder="Digite o nome de usuário"
+          :error="!!error"
+          class="w-full"
+          @keyup.enter="handleAddContact"
+        />
+      </UFormField>
 
-      <template #body>
-        <UFormField
-          label="Nome de usuário"
-          :error="error?.message"
+      <div class="flex justify-end gap-2 mt-4">
+        <UButton
+          variant="ghost"
+          @click="isOpen = false"
         >
-          <UInput
-            v-model="username"
-            placeholder="Digite o nome de usuário"
-            :error="!!error"
-            class="w-full"
-            @keyup.enter="handleAddContact"
-          />
-        </UFormField>
-
-        <div class="flex justify-end gap-2 mt-4">
-          <UButton
-            variant="ghost"
-            @click="isOpen = false"
-          >
-            Cancelar
-          </UButton>
-          <UButton
-            variant="solid"
-            :loading="loading"
-            :disabled="!username || !!error"
-            @click="handleAddContact"
-          >
-            Adicionar
-          </UButton>
-        </div>
-      </template>
-    </UModal>
-  </div>
+          Cancelar
+        </UButton>
+        <UButton
+          variant="solid"
+          :loading="status.isPending.value"
+          :disabled="!username || !!error"
+          @click="handleAddContact"
+        >
+          Adicionar
+        </UButton>
+      </div>
+    </template>
+  </UModal>
 </template>
